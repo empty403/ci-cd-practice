@@ -1,7 +1,5 @@
 name: First-workflow
 on: pull_request
-permissions:
-  contents: read
 jobs:
   setup-node:
     runs-on: ubuntu-latest
