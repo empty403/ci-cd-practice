@@ -10,5 +10,13 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
-      - name: Inspect node version
-        run: node --version
+      - name: Prepare dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
