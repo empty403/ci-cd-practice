@@ -12,6 +12,8 @@ jobs:
           node-version: 24
       - name: Prepare dependencies
         run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       - name: Lint
         run: npm run lint
       - name: Type check
@@ -20,3 +22,5 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
+      - name: E2E test
+        run: npm run test:e2e
