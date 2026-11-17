@@ -3,6 +3,8 @@ on: pull_request
 jobs:
   setup-node:
     runs-on: ubuntu-latest
+    env:
+      VITE_BUILD_LABEL: ${{ vars.BUILD_LABEL }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
