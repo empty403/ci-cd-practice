@@ -1,0 +1,40 @@
+name: First-workflow
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    env:
+      VITE_BUILD_LABEL: ${{ vars.BUILD_LABEL }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Check dummy secret
+        env:
+          LESSON_DEMO_TOKEN: ${{ secrets.LESSON_DEMO_TOKEN }}
+        run: node -e 'if (!process.env.LESSON_DEMO_TOKEN) process.exit(1)'
+      - name: Prepare dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Lint
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: E2E test
+        run: npm run test:e2e
+      - name: Upload playwright reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
