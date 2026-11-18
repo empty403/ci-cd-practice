@@ -5,7 +5,7 @@ test("home page shows its heading and increments the counter", async ({
 }) => {
   await page.goto("./");
   await expect(
-    page.getByRole("heading", { name: "CI/CD practice", exact: true }),
+    page.getByRole("heading", { name: "Release practice", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Count is 0", exact: true }).click();
   await expect(
