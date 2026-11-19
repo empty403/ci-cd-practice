@@ -1,0 +1,18 @@
+name: Receiver
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Message from the sender
+        required: true
+        type: string
+jobs:
+  log:
+    env:
+      MESSAGE: ${{ inputs.message }}
+      EVENT: ${{ github.event_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          printf 'Message: %s\n' "$MESSAGE"
+          printf 'Event: %s\n' "$EVENT"
