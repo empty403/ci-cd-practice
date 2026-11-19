@@ -1,0 +1,12 @@
+name: Manual workflow
+on: workflow_dispatch
+permissions:
+  actions: write
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Dispatch new workflow
+        run: gh workflow run lab-dispatch-target.yml --repo empty403/ci-cd-practice --ref main -f message=hello-from-sender
